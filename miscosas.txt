@@ -8,9 +8,15 @@ docker run --name teatr-api -p 8282:8282 teatr-api
 # LOCALHOST
 docker build -t agrosync-api . --no-cache
 docker rm -f agrosync-api
-docker run -it --rm --name agrosync-api -p 8282:8282 -v "$(pwd)/app:/app/app" -e PYTHONPATH=/app agrosync-api
+docker run -it --rm --name agrosync-api -p 8284:8284 -v "$(pwd)/app:/app/app" -e PYTHONPATH=/app agrosync-api
+
+
+
+# Para subir a Dockhub
+docker build -t migel1985/agrosync-api:v1 .
+docker push migel1985/teatr-api:v1
 
 
 # PARA AWS
-sudo docker pull migel1985/agrosync-api:vXXXXXXXX
-sudo docker run -d   --name agrosync-api   -p 8282:8282   migel1985/agrosync-api:vXXXXXXXX
+sudo docker pull migel1985/agrosync-api:v1
+sudo docker run -d   --name agrosync-api   -p 8284:8284   migel1985/agrosync-api:v1

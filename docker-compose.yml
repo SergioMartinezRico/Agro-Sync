@@ -1,6 +1,6 @@
 # QUITA version (obsoleto)
 services:
-  teatr-api:
+  agrosync-api:
     build: .
     ports:
       - "8282:8282"
