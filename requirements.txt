@@ -12,3 +12,5 @@ langchain-community==0.2.10
 groq==0.4.1
 
 schedule==1.2.0
+opencv-python-headless==4.10.0.84
+roboflow==1.2.12

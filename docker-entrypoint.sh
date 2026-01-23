@@ -1,21 +1,29 @@
 #!/bin/bash
-set -e  # Para que falle si algo sale mal
+set -e
 
-# Crear directorio logs si no existe
 mkdir -p /app/logs
 
-echo "🚀 Iniciando AgroSync + MeteoTask..."
+echo "🚀 Iniciando AgroSync + MeteoTask + AlertasTask..."
 
-# 1. Inicia meteoTask.py EN SEGUNDO PLANO (no bloquea)
+# 1. Inicia meteoTask.py EN SEGUNDO PLANO
+echo "🌦️  Iniciando MeteoTask..."
 python -u /app/app/ProgramedJobs/meteoTask.py &
+METEO_PID=$!
+echo $METEO_PID > /tmp/meteo.pid
 
-# 2. Guarda PID del meteoTask para poder matarlo después si hace falta
-echo $! > /tmp/meteo.pid
+# 2. Inicia alertasTask.py EN SEGUNDO PLANO
+echo "🚨 Iniciando AlertasTask..."
+python -u /app/app/ProgramedJobs/alertasTask.py &
+ALERTAS_PID=$!
+echo $ALERTAS_PID > /tmp/alertas.pid
 
-# 3. Espera 3 segundos a que se inicie bien
-sleep 3
+# 3. Espera que ambos arranquen
+sleep 5
 
-# 4. Inicia Flask en PRIMER PLANO (CMD original)
-echo "🌤️ MeteoTask corriendo en background cada 15min"
+echo "✅ MeteoTask PID: $METEO_PID"
+echo "✅ AlertasTask PID: $ALERTAS_PID"
+echo "🌤️ MeteoTask + AlertasTask corriendo en background"
 echo "🔥 Iniciando Flask en puerto 8282..."
+
+# 4. Flask en PRIMER PLANO
 exec python -u app/main.py

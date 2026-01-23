@@ -90,7 +90,7 @@ def save_meteo_forecast(uid_parcel: str, df: pd.DataFrame):
 
 def fetch_meteo_data():
     """Función que hace la llamada a Open-Meteo cada 15 min"""    
-
+    print("**************************EEEEEEEEEENTROOOOO*************************")
     parcelas = getParcelas4HistMeteo()
 
     for row in parcelas:
@@ -98,7 +98,7 @@ def fetch_meteo_data():
         coords = row["coordinates_parcel"]
         coords_list = ast.literal_eval(coords)
         lat=coords_list[0][0]
-        long=lat=coords_list[0][1]
+        long=coords_list[0][1]
 
         url = "https://api.open-meteo.com/v1/forecast"
         params = {
@@ -136,7 +136,7 @@ def fetch_meteo_data():
 fetch_meteo_data()
 
 # Programa la tarea cada 15 minutos
-schedule.every(15).minutes.do(fetch_meteo_data)
+schedule.every(60).minutes.do(fetch_meteo_data)
 
 
 while True:

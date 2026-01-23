@@ -5,6 +5,7 @@ import requests
 import math
 import os
 from roboflow import Roboflow
+from flask import Blueprint, jsonify
 
 # --- CONFIGURACIÓN ---
 ROBOFLOW_API_KEY = "Meni7XPRgKOEkHJeXRHz"
