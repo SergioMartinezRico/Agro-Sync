@@ -9,6 +9,7 @@ meteo_bp = Blueprint('meteo', __name__, url_prefix='/agrosync-api')
 @meteo_bp.route('/forecast', methods=['POST'])
 def forecast():
     # TRAE EL ACTUAL SEGUN PARÁMETROS DE ENTRADA DE LONGITUD Y LATITUD
+    #comentario de prueba
     print("entro en forecast")
     data = request.get_json()
     lat = data.get('lat')
