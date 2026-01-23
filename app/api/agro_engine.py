@@ -189,7 +189,7 @@ class AgroEngine:
 if __name__ == "__main__":
     
     # URL de prueba
-    TEST_URL = "https://res.cloudinary.com/dbi5thf23/image/upload/v1769162534/IMG_20240927_115037_00_107_1_3_cd3cph.jpg" 
+    #TEST_URL = "https://res.cloudinary.com/dbi5thf23/image/upload/v1769162534/IMG_20240927_115037_00_107_1_3_cd3cph.jpg" 
     
     print("--- MOTOR DE TELEMETRÍA (SIN BIOLOGÍA) ---")
     
