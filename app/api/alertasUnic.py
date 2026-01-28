@@ -737,19 +737,3 @@ def calcular_y_guardar_alertas(id_parcela):
     except Exception as e:
         logger.error(f"❌ Error procesando alertas: {e}")
         raise
-
-#calcular_y_guardar_alertas()
-
-# Programar cada noche 08:00
-schedule.every().day.at("08:00").do(calcular_y_guardar_alertas)
-
-
-# Primera ejecución solo si ya son las 08:00 o después
-if "08:00" in datetime.now().strftime("%H:%M"):
-    calcular_y_guardar_alertas()
-
-logger.info("AlertasTask iniciado - ejecutar a las 08:00 AM")
-
-while True:
-    schedule.run_pending()
-    time.sleep(60)  # Revisa cada minuto (precisión 1 min)

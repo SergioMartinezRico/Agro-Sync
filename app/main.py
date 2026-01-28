@@ -5,9 +5,15 @@ from app.api.fields import field_bp
 from app.api.meteo import meteo_bp
 from app.api.maps import sentinel_bp
 from app.api.conversations import conversations_bp
+from app.api.app_llm import messages_bp
 
 app = Flask(__name__)
-CORS(app)  # ← ESTO HACE LA MAGIA ✨
+#CORS(app)  # ← ESTO HACE LA MAGIA ✨
+CORS(app, resources={r"/*": {"origins": "*"}})
+CORS(app, resources={r"/*": {
+            "origins": "*",
+            "allow_headers": "*"
+        }})
 
 # Registrar blueprint
 app.register_blueprint(auth_bp)
@@ -15,11 +21,12 @@ app.register_blueprint(field_bp)
 app.register_blueprint(meteo_bp)
 app.register_blueprint(sentinel_bp)
 app.register_blueprint(conversations_bp)
+app.register_blueprint(messages_bp)
 
 @app.route('/')
 def home():
     return {
-        "service": "AgroSync API v17",
+        "service": "AgroSync API v24",
         "endpoints": [
             # AUTENTICACIÓN
             {

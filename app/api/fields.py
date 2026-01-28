@@ -74,7 +74,7 @@ def agregarlote():
     urlAuragetFields = os.getenv('AURAVANT_BASE_URL', 'https://api.auravant.com/api/') + 'agregarlote'
     headers = {'Authorization': f'Bearer {token}'}
     userdata = {
-        "nombre": -1,   
+        "nombre": "Finca_" + nombreDeCampo,   
         "shape": coordenadas,
         "nombrecampo": nombreDeCampo
     }
@@ -82,6 +82,21 @@ def agregarlote():
     
     resp = requests.post(urlAuragetFields, headers=headers, data=userdata)  # ← GET
     
+    return jsonify(resp.json()), resp.status_code
+
+
+
+@field_bp.route('/eliminarlote', methods=['GET']) 
+def eliminarlote():
+    token = getToken()
+    if not token:
+        return jsonify({"error": "No token"}), 401
+
+    idField = request.args.get('lote', 'default')
+    urlAuragetFields = os.getenv('AURAVANT_AUTH_URL', 'https://api.auravant.com/api/') + 'borrarlotes' + "?lote=" + idField
+    headers = {'Authorization': f'Bearer {token}'}
+    
+    resp = requests.get(urlAuragetFields, headers=headers)
     return jsonify(resp.json()), resp.status_code
 
 
@@ -107,20 +122,3 @@ def convertirArrayCoordenadasEnPoligono(coords):
         pairs.append(pairs[0])
     
     return f"POLYGON(({', '.join(pairs)}))"
-
-
-@field_bp.route('/eliminarlote', methods=['GET']) 
-def eliminarlote():
-    print("entro en eliminarlote")
-    token = getToken()
-    if not token:
-        return jsonify({"error": "No token"}), 401
-
-    idField = request.args.get('lote', 'default')
-    
-    urlAuragetFields = os.getenv('AURAVANT_BASE_URL', 'https://api.auravant.com/api/') + 'borrarlotes' + "?lote=" + idField
-    headers = {'Authorization': f'Bearer {token}'}
-    
-    resp = requests.get(urlAuragetFields, headers=headers)
-    
-    return jsonify(resp.json()), resp.status_code

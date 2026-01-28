@@ -2,9 +2,33 @@ import requests
 import pandas as pd
 from flask import Blueprint, request, jsonify
 from models.field import getParcelas4HistMeteo
+from . import meteoUnic
+from . import histVegetaUnic
+from . import histMeteoUnic
+from . import alertasUnic
 import ast
+import traceback
+import logging
 
 meteo_bp = Blueprint('meteo', __name__, url_prefix='/agrosync-api')
+
+@meteo_bp.route('/alertas_tiempo_parcela', methods=['POST'])
+def alertas_tiempo_parcela():
+    try:
+        print("entro en alertas_tiempo_parcela")
+        data = request.get_json()
+        idParcela = data.get('uid_parcela')
+
+        meteoUnic.fetch_meteo_data(idParcela)
+        histVegetaUnic.leerYGuardarVegetacionIndices(idParcela)
+        histMeteoUnic.fetch_meteo_data_histo(idParcela)
+        alertasUnic.calcular_y_guardar_alertas(idParcela)
+        print("retornamos OK")
+        return "OK"
+    except Exception:
+        logging.error(traceback.format_exc())
+        return "KO", 500
+    
 
 @meteo_bp.route('/forecast', methods=['POST'])
 def forecast():

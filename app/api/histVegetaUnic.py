@@ -139,12 +139,12 @@ def save_indices_to_db(df: pd.DataFrame):
 # 1) INICIALIZAR GOOGLE EARTH ENGINE
 # --------------------------------------------------
 def leerYGuardarVegetacionIndices(id_parcela=None):
-    CREDENTIALS_PATH = 'creds/desafio-tripulaciones-484914-d7647b47c61b.json'  # Tu archivo descargado
+    CREDENTIALS_PATH = '/app/app/api/creds/desafio-tripulaciones-484914-d7647b47c61b.json'  # Tu archivo descargado
     # CREDENTIALS_PATH = '/app/app/ProgramedJobs/creds/desafio-tripulaciones-484914-d7647b47c61b.json'  # Tu archivo descargado
     PROYECTO_ID = 'desafio-tripulaciones-484914'
     try:
         print("🔑 Cargando credenciales service account...")
-        
+        print("credential path: ", CREDENTIALS_PATH)
         # Verificar que el archivo existe
         if not os.path.exists(CREDENTIALS_PATH):
             raise FileNotFoundError(f"❌ JSON no encontrado: {CREDENTIALS_PATH}")
@@ -217,10 +217,10 @@ def leerYGuardarVegetacionIndices(id_parcela=None):
     hoy = datetime.utcnow()
 
     # Fecha de hace 4 días
-    hace_4_dias = hoy - timedelta(days=700)
+    hace_60_dias = hoy - timedelta(days=60)
 
     # Convertir a string en formato YYYY-MM-DD
-    fecha_inicio = hace_4_dias.strftime('%Y-%m-%d')
+    fecha_inicio = hace_60_dias.strftime('%Y-%m-%d')
     fecha_fin = hoy.strftime('%Y-%m-%d')
 
     s2 = (
@@ -269,6 +269,7 @@ def leerYGuardarVegetacionIndices(id_parcela=None):
         })
 
     df = pd.DataFrame(rows)
+    
     '''
     df.to_csv('indices_fincas_S3.csv', index=False)
 
@@ -280,18 +281,3 @@ def leerYGuardarVegetacionIndices(id_parcela=None):
     print("✅ Datos guardados en base de datos correctamente:", df.shape)
 
 
-#leerYGuardarVegetacionIndices()
-
-# Programar cada noche 06:00
-schedule.every().day.at("06:00").do(leerYGuardarVegetacionIndices)
-
-
-# Primera ejecución solo si ya son las 06:00 o después
-if "06:00" in datetime.now().strftime("%H:%M"):
-    leerYGuardarVegetacionIndices()
-
-logger.info("histVegetaTask iniciado - ejecutar a las 03:00 AM")
-
-while True:
-    schedule.run_pending()
-    time.sleep(60)  # Revisa cada minuto (precisión 1 min)

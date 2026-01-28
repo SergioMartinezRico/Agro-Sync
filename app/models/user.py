@@ -7,7 +7,6 @@ import hashlib  # ✅ Para hashear contraseña
 
 # ✅ Mantén SOLO las funciones:
 def verify_user_credentials(email: str, password: str):
-    print("Miguel entra en verify_")
     conn = get_db_connection()
     try:
         # ✅ HASHEAR la contraseña que viene del login ANTES de comparar

@@ -6,7 +6,7 @@ services:
       - "8282:8282"
     volumes:
       - ./app:/app/app
-      - ./creds:/app/app/creds:ro  # Monta carpeta creds como solo lectura
+      - ./creds:/app/app/ProgramedJobs/creds:ro  # Monta carpeta creds como solo lectura
     environment:
       - PYTHONPATH=/app
     restart: unless-stopped

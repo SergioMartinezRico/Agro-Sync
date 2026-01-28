@@ -107,7 +107,7 @@ def save_meteo_histo(df: pd.DataFrame):
 
 
 
-def fetch_meteo_data(id_parcela):
+def fetch_meteo_data_histo(id_parcela):
     """Función que hace la llamada a Open-Meteo cada 15 min"""
     parcelas = getParcelas4HistMeteo(id_parcela)
 
@@ -173,18 +173,3 @@ def fetch_meteo_data(id_parcela):
             logger.error(f"Error en consulta meteo: {e}")
 
 
-#fetch_meteo_data()
-
-# Programar cada noche 07:00
-schedule.every().day.at("07:00").do(fetch_meteo_data)
-
-
-# Primera ejecución solo si ya son las 07:00 o después
-if "07:00" in datetime.now().strftime("%H:%M"):
-    fetch_meteo_data()
-
-logger.info("AlertasTask iniciado - ejecutar a las 07:00 AM")
-
-while True:
-    schedule.run_pending()
-    time.sleep(60)  # Revisa cada minuto (precisión 1 min)

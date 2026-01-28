@@ -139,15 +139,3 @@ def fetch_meteo_data(id_parcela=None):
             logger.error(f"Error en consulta meteo: {e}")
 
 
-#fetch_meteo_data()
-
-# Programa la tarea cada 15 minutos
-schedule.every(180).minutes.do(fetch_meteo_data)
-
-
-while True:
-    schedule.run_pending()
-    time.sleep(1)
-
-
-
