@@ -4,6 +4,23 @@
 
 Este repositorio contiene el backend completo: una API RESTful de alto rendimiento que orquesta la ingesta de imágenes satelitales (Sentinel-2, GEE), procesa datos meteorológicos hiperlocales y ejecuta un motor de alertas preventivas (heladas, sequías, plagas) mediante pipelines ETL automatizados y contenerizados.
 
+## 🛠️ Mi Contribución: Core de Inteligencia e Infraestructura
+Como responsable del área de **Data Engineering e IA**, desarrollé y desplegué los tres motores críticos que dotan de inteligencia a la plataforma. He segregado estos componentes en microservicios independientes para optimizar recursos y escalabilidad:
+
+[![GitHub Repo](https://img.shields.io/badge/AgroDetect_API-Salud_Vegetal-2ea44f?style=for-the-badge&logo=github)](https://github.com/SergioMartinezRico/api_plant_detect)
+* **Rol:** Engine de salud vegetal basado en el middleware **PlantBioEngine**.
+* **Hito Técnico:** Procesamiento de imágenes (Base64/URL) con análisis taxonómico y protocolos de tratamiento automatizados.
+* **Stack:** Flask, Python, REST API.
+
+[![GitHub Repo](https://img.shields.io/badge/AgroEngine-Vision_360_&_Satelital-007acc?style=for-the-badge&logo=github)](https://github.com/SergioMartinezRico/agro_engine)
+* **Rol:** Motor de visión que convierte detecciones visuales en **vectores cartesianos (x, y, z)**.
+* **Hito Técnico:** Algoritmo de proyección para localizar anomalías en entornos 360° mediante modelos contenerizados en **Docker**.
+* **Stack:** OpenCV, Hugging Face, PyTorch.
+
+### 🛰️ Data Engine & Sentinel-2 Pipeline
+* **Rol:** Orquestación de pipelines ETL para ingesta satelital dinámica.
+* **Hito Técnico:** Generación *on-demand* de mapas de calor multiespectrales (**NDVI, NDWI, SAVI**) integrando la API de **Sentinel Hub**.
+
 ## 🏗️ Arquitectura del Sistema
 
 El sistema utiliza una arquitectura de **Contenedor Híbrido Monolítico**. Un único servicio Docker orquesta tanto la capa de presentación (API Flask) como los procesos de fondo (Workers), optimizando recursos y despliegue.
@@ -150,3 +167,18 @@ El sistema espera las siguientes tablas principales en PostgreSQL:
 ├── docker-entrypoint.sh # Script de arranque híbrido
 ├── Dockerfile           # Imagen Python 3.11 Slim
 └── main.py              # Punto de entrada de la aplicación
+
+```
+
+## 👥 Equipo de Desarrollo
+
+Este proyecto es el resultado del trabajo colaborativo en **The Bridge**:
+
+* **Data Science & AI Engine:**
+  * [![LinkedIn](https://img.shields.io/badge/LinkedIn-Sergio_Martinez_Rico-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/sergio-martinez-rico-)
+  * [![LinkedIn](https://img.shields.io/badge/LinkedIn-Rebeca_Pérez-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/rebeca-perez-castanos/)
+  * [![LinkedIn](https://img.shields.io/badge/LinkedIn-Itxaso_Campos-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/itxasocampos/)
+  * [![LinkedIn](https://img.shields.io/badge/LinkedIn-Mikel_Lizarraga-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/mikel-lizarraga/)
+  * [![LinkedIn](https://img.shields.io/badge/LinkedIn-Miguel_Mateo-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/miguelmateod/)
+  * [![LinkedIn](https://img.shields.io/badge/LinkedIn-Noha_Hussien-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/noha-hussien-9b940b168/)
+  * [![LinkedIn](https://img.shields.io/badge/LinkedIn-Matilde_Valeruz-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/matildevaleruz/?locale=es)
